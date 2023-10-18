@@ -29,8 +29,8 @@ def call_history(method: Callable) -> Callable:
     key = method.__qualname__
     i = "".join([key, ":inputs"])
     o = "".join([key, ":outputs"])
-    @wraps(method)
 
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         """ Wrapp """
         self._redis.rpush(i, str(args))
@@ -43,6 +43,7 @@ def call_history(method: Callable) -> Callable:
 def count_calls(method: Callable) -> Callable:
     """ decorator Counts how many times methods of Cache class are called """
     key = method.__qualname__
+
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         """ This is wrapper function for call_history method """
